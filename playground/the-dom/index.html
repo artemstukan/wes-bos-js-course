@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>The DOM</title>
+  <link rel="stylesheet" href="../../base.css">
+
+</head>
+
+<body>
+  <p class='artem'>this is for test only to see if it is prev sibling</p>
+  <p class="wes">I am <b>NOT ARTEM</b> but Wes, I <em>love</em> to bbq and <strong>Make <b>great!
+        <strong>american</strong></b> websites!</strong>
+  </p>
+  <!-- <img class="nice cool" src="https://picsum.photos/500" /> -->
+
+  <!-- <img data-name="artem" class="nice cool" src="https://picsum.photos/400">
+  <img data-name="larisa" data-last="stukan" class="larisa nice cool" src="https://picsum.photos/400">
+  <img data-name="igor" class="nice cool" src="https://picsum.photos/400">
+  <img data-name="tanya" class="nice cool" src="https://picsum.photos/400"> -->
+
+  <div class="items">
+    <div class="item">
+      <img class="custom" data-last="bos" data-name="wes" src="https://picsum.photos/150" />
+      <img data-name="kait" src="https://picsum.photos/200" />
+      <img data-name="lux" src="https://picsum.photos/200" />
+
+      <p>Hi I'm a item</p>
+    </div>
+    <div class="item item2">
+      <img src="https://picsum.photos/200" />
+      <h2>
+        I am a heading
+        <span>I am hidden!</span>
+        <style>
+          h2 {
+            color: red
+          }
+
+          strong {
+            color: sandybrown;
+          }
+
+          b {
+            font-style: italic;
+            color: brown;
+          }
+
+          .whiteBG {
+            background: white;
+          }
+
+          .wrapper {
+            background: cornflowerblue;
+          }
+        </style>
+      </h2>
+      <p>Hi I'm a item</p>
+    </div>
+    <article class="item">
+      <h2>Im an article</h2>
+      <p>${pizzaMsg}</p>
+    </article>
+  </div>
+
+  <style>
+    h2 span {
+      display: none;
+    }
+
+    img {
+      transition: all 0.5s;
+      /* border-radius: 10%; */
+    }
+
+    .round {
+      border-radius: 50%;
+      transform: rotate(0.5turn) scale(0.5);
+      box-shadow: 0px 0px 100px cyan
+    }
+  </style>
+  <script src="./traversing.js"></script>
+  <!-- <script src="./traversing.js"></script> -->
+</body>
+
+</html>

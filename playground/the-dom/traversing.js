@@ -1,0 +1,24 @@
+// const wes = document.querySelector('p.wes');
+// console.log(wes);
+// // console.log(wes.children);
+// // console.log(wes.childNodes);
+// console.group('els');
+// console.log(wes.firstElementChild);
+// console.log(wes.lastElementChild);
+// console.log(wes.previousElementSibling);
+// console.log(wes.nextElementSibling);
+// console.log(wes.parentElement);
+// console.groupEnd('els');
+// console.group('nodes');
+// // console.log(wes.childNodes);
+// console.log(wes.firstChild);
+// console.log(wes.lastChild);
+// console.log(wes.previousSibling);
+// console.log(wes.nextSibling);
+// console.log(wes.parentNode);
+// console.groupEnd('nodes');
+
+let p;
+p = document.createElement('p');
+p.textContent = 'i will be removed';
+document.body.appendChild(p);

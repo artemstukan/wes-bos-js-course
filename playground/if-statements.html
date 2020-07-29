@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>If Statements</title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+  * empty array
+  * empty object
+  * 1
+  * -10
+  * full string
+  * a string of "0"
+  * 0
+  * undefined variable
+  * Variable set to null
+  * a variable set to `"hello" - 10` NaN
+  * empty string
+
+  <script>
+    // function slugify(sentence, lowercase) {
+    //     const slug = sentence.replace(/\s/g, '-');
+    //     if (lowercase) {
+    //       return slug.toLowerCase();
+    //     }
+    //     return slug;
+    //   }
+
+    function ternaryFuncIsTruthy(isTruthy) {
+      return !!isTruthy;
+    }
+    const count = 2;
+    console.log(`You have ${count} ${count === 1 ? 'item' : 'items'} in your cart`);
+
+    function check1() {
+      console.log('running check1');
+      return true;
+    }
+
+    function check2() {
+      console.log('running check2');
+      return true;
+    }
+
+    function check3() {
+      console.log('running check3');
+      return true;
+    }
+
+    const isAdmin = true;
+    // check1() && check2() && check3() ? console.log('all were true') : null;
+    isAdmin && check1() && check2() && check3();
+  </script>
+</body>
+
+</html>
