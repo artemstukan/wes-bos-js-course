@@ -183,7 +183,7 @@ const cleanPeople = people.map(function(person) {
 console.table(people);
 console.table(cleanPeople);
 
-const over40 = cleanPeople.filter(person => person.age >= 40 )
+const over40 = cleanPeople.filter(person => person.age >= 40);
 console.table(over40);
 console.clear();
 
@@ -213,7 +213,7 @@ orderTotals.forEach(el => {
 });
 console.log(total);
 
-const orderTotalsSum = orderTotals.reduce(((acc, value) => acc + value), 0);
+const orderTotalsSum = orderTotals.reduce((acc, value) => acc + value, 0);
 console.log(orderTotalsSum);
 console.clear();
 
@@ -222,15 +222,15 @@ console.clear();
 // console.log(inventoryCounts);
 // console.log(inventorySting);
 
-const inventoryCounts = inventory.reduce(((acc, value) => {
-        acc[value.type] = acc[value.type] ? acc[value.type] + 1: 1;
+const inventoryCounts = inventory.reduce((acc, value) => {
+        acc[value.type] = acc[value.type] ? acc[value.type] + 1 : 1;
         // if (acc[value.type]) {
         //         acc[value.type]++;
         // } else {
         //         acc[value.type] = 1;
         // }
         return acc;
-}), {});
+}, {});
 
 console.log(inventoryCounts);
 console.clear();
@@ -520,13 +520,67 @@ Mozilla
 console.log(htmlTextCopy.length);
 
 // const letterMap = new Map();
+// const letterSet = new Set();
 // htmlTextCopy.split('').forEach(function(letter) {
 //         letterMap.set(letter, letterMap.has(letter) ? letterMap.get(letter) + 1 : 1);
+//         letterSet.add(letter);
 // });
 
-const letterMap = htmlTextCopy.split('').reduce(((acc, letter) => {
-        return acc.push + letter;
-}, {}));
-        // letterMap.set(letter, letterMap.has(letter) ? letterMap.get(letter) + 1 : 1);
+// console.log(letterMap);
+// console.log(Array.from(letterMap));
 
-console.log(letterMap);
+// console.log(letterSet);
+// console.log(Array.from(letterSet));
+
+console.log('NOW THE RIGHT WAY?');
+// const reducedAr = htmlTextCopy.split('').reduce((accArray, letter) => [...accArray, ...letter], []);
+// console.log(reducedAr);
+// console.log(reducedAr.length);
+
+// const reducedObj = htmlTextCopy.split('').reduce((accArray, letter) => {
+//         accArray[letter] = accArray[letter] ? accArray[letter] + 1 : 1;
+//         return accArray;
+// }, {});
+// console.log(reducedObj);
+// console.log(Object.entries(reducedObj).length);
+
+function isValidCaracter(char) {
+        // (letter >= 'A' && letter <= 'z') || (letter >= 'А' && letter <= 'я')
+        return char.match(/[a-zа-я0-9]/i);
+}
+
+function transformToLowerCase(char) {
+        return char.toLowerCase();
+}
+
+const uniqueCharCounter = (accArray, letter) => {
+        accArray[letter] = accArray[letter] ? accArray[letter] + 1 : 1;
+        return accArray;
+};
+
+// const result = mdnTextAr.filter(letter =>
+//         // (letter >= 'A' && letter <= 'z') || (letter >= 'А' && letter <= 'я')
+//         letter.match(/[a-zа-я]/i)
+// );
+
+// const mdnTextAr = htmlTextCopy.split('');
+// const mdnTextAr = htmlTextCopy.split('').map(letter => letter.toLowerCase());
+
+const result = htmlTextCopy
+        .split('')
+        .filter(isValidCaracter)
+        .map(transformToLowerCase)
+        .reduce(uniqueCharCounter, {});
+console.log(result.length);
+
+// const reducedObj = result.reduce((accArray, letter) => {
+//         accArray[letter] = accArray[letter] ? accArray[letter] + 1 : 1;
+//         return accArray;
+// }, {});
+console.log(result);
+console.log(Object.entries(result).length);
+
+const toSortResults = (a, b) => b[1] - a[1];
+const sortedResults = Object.entries(result).sort(toSortResults);
+
+console.log(sortedResults);
