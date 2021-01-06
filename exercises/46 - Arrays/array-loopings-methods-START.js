@@ -583,4 +583,4 @@ console.log(Object.entries(result).length);
 const toSortResults = (a, b) => b[1] - a[1];
 const sortedResults = Object.entries(result).sort(toSortResults);
 
-console.log(sortedResults);
+console.log(sortedResults); 
