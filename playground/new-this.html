@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript New This</title>
+    <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+    <button class="one">Button 1</button>
+    <button class="two">Button 2</button>
+    <script>
+        const myDate = new Date('August 11, 2025');
+        console.dir(myDate);
+
+        const names = ['artem', 'gabor'];
+
+        const span = document.createElement('span');
+        console.dir(span);
+
+        function Pizza(toppings = [], customer) {
+                this.toppings = toppings;
+                this.customer = customer;
+                this.id = Math.floor(Math.random() * 16777215).toString(16);
+                console.log('inside of constructor this = ', this);
+        }
+
+        const pepperoniPizza = new Pizza(['olives', 'tomatoes', 'pepperoni', 'blue cheese'], 'Artem');
+        console.log({ pepperoniPizza });
+        console.log(pepperoniPizza.constructor);
+
+        const pineapplePizza = new Pizza(['pineapple', 'ham', 'mushrooms'], 'Gabor');
+        console.log({ pineapplePizza });
+        console.log(pineapplePizza.constructor);
+
+        // const button1 = document.querySelector('.one');
+        // const button2 = document.querySelector('.two ');
+
+        // function tellMeAboutTheButton(event) {
+        //         console.log(this);
+        //         console.log(event);
+        //         // setTimeou  t(function() {
+        //         //         this.textContent = 'You have made it!';
+        //         // }, 1500);
+        //         setTimeout(() => {
+        //                 this.textContent = 'You have made it!';
+        //         }, 1500);
+        // }
+
+        // button1.addEventListener('click', tellMeAboutTheButton);
+        // button2.addEventListener('click', tellMeAboutTheButton);
+    </script>
+</body>
+
+</html>
