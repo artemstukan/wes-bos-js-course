@@ -3,11 +3,6 @@ function Gallery(gallery) {
                 throw new Error('No Gallery Found');
         }
         const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-        const imgs = gallery.querySelectorAll('img');
-        imgs.forEach(img => {
-                img.style.border = `10px solid #${randomColor}`;
-        });
-
         const images = Array.from(gallery.querySelectorAll('img'));
         const modal = document.querySelector('.modal');
         const prevButton = document.querySelector('button.prev');
@@ -31,40 +26,6 @@ function Gallery(gallery) {
                 prevButton.removeEventListener('click', showPrevImage);
         }
 
-        function handleClickOutside(e) {
-                // if (e.target.matches('.modal.open')) {
-                if (e.target === e.currentTarget) {
-                        closeModal();
-                }
-        }
-
-        function handleClickUp(e) {
-                // if (e.which === 27) {
-                switch (e.key) {
-                        case 'ArrowRight':
-                                showNextImage();
-                                break;
-                        case 'ArrowLeft':
-                                showPrevImage();
-                                break;
-                        case 'Escape':
-                                closeModal();
-                                break;
-                        default:
-                }
-                // if (e.key === 'Escape') {
-                //         closeModal();
-                // }
-        }
-
-        function showNextImage() {
-                showImage(currentImage.nextElementSibling || gallery.firstElementChild);
-        }
-
-        function showPrevImage() {
-                showImage(currentImage.previousElementSibling || gallery.lastElementChild);
-        }
-
         function showImage(el) {
                 if (!el) {
                         console.info('No Image to Show');
@@ -77,10 +38,53 @@ function Gallery(gallery) {
                 openModal();
         }
 
-        images.forEach(img => img.addEventListener('click', e => showImage(e.currentTarget)));
+        function showNextImage() {
+                showImage(currentImage.nextElementSibling || gallery.firstElementChild);
+        }
+
+        function showPrevImage() {
+                showImage(currentImage.previousElementSibling || gallery.lastElementChild);
+        }
+
+        function handleClickOutside(e) {
+                // if (e.target.matches('.modal.open')) {
+                if (e.target === e.currentTarget) {
+                        closeModal();
+                }
+        }
+
+        function handleClickUp(e) {
+                switch (e.key) {
+                        case 'ArrowRight':
+                                showNextImage();
+                                break;
+                        case 'ArrowLeft':
+                                showPrevImage();
+                                break;
+                        case 'Escape':
+                                closeModal();
+                                break;
+                        default:
+                }
+        }
+
+        images.forEach(img => {
+                img.style.border = `10px solid #${randomColor}`;
+                img.addEventListener('click', e => showImage(e.currentTarget));
+                img.addEventListener('keyup', e => {
+                        if (e.key === 'Enter') {
+                                showImage(e.target);
+                        }
+                });
+        });
 
         modal.addEventListener('click', handleClickOutside);
 }
 
 const gallery1 = Gallery(document.querySelector('.gallery1'));
 const gallery2 = Gallery(document.querySelector('.gallery2'));
+
+// document.addEventListener('click', function(e) {
+//         console.log(e.target);
+//         console.log(e.currentTarget);
+// });
