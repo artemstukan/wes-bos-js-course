@@ -15,15 +15,20 @@ function Gallery(gallery) {
         let currentImage;
 
         function openModal() {
-                console.info('Opening Modal');
                 if (modal.matches('.open')) {
                         return;
                 }
                 modal.classList.add('open');
+                window.addEventListener('keyup', handleClickUp);
+                nextButton.addEventListener('click', showNextImage);
+                prevButton.addEventListener('click', showPrevImage);
         }
 
         function closeModal() {
                 modal.classList.remove('open');
+                window.removeEventListener('keyup', handleClickUp);
+                nextButton.removeEventListener('click', showNextImage);
+                prevButton.removeEventListener('click', showPrevImage);
         }
 
         function handleClickOutside(e) {
@@ -33,11 +38,37 @@ function Gallery(gallery) {
                 }
         }
 
+        function handleClickUp(e) {
+                // if (e.which === 27) {
+                switch (e.key) {
+                        case 'ArrowRight':
+                                showNextImage();
+                                break;
+                        case 'ArrowLeft':
+                                showPrevImage();
+                                break;
+                        case 'Escape':
+                                closeModal();
+                                break;
+                        default:
+                }
+                // if (e.key === 'Escape') {
+                //         closeModal();
+                // }
+        }
+
+        function showNextImage() {
+                showImage(currentImage.nextElementSibling || gallery.firstElementChild);
+        }
+
+        function showPrevImage() {
+                showImage(currentImage.previousElementSibling || gallery.lastElementChild);
+        }
+
         function showImage(el) {
                 if (!el) {
                         console.info('No Image to Show');
                 }
-                console.log(el);
                 modal.querySelector('img').src = el.src;
                 modal.querySelector('h2').textContent = el.title;
                 // modal.querySelector('figure p').textContent = el.getAttribute('data-description');
@@ -51,5 +82,5 @@ function Gallery(gallery) {
         modal.addEventListener('click', handleClickOutside);
 }
 
-const galary1 = Gallery(document.querySelector('.gallery1'));
-const galary2 = Gallery(document.querySelector('.gallery2'));
+const gallery1 = Gallery(document.querySelector('.gallery1'));
+const gallery2 = Gallery(document.querySelector('.gallery2'));
