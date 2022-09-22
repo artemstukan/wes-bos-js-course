@@ -12,45 +12,69 @@
     <button class="two">Button 2</button>
     <script>
         const myDate = new Date('August 11, 2025');
-        console.dir(myDate);
+        // console.dir(myDate);
 
-        const names = ['artem', 'gabor'];
+        const names = ['wes', 'kait'];
+        const wes = { name: 'wes' };
 
         const span = document.createElement('span');
-        console.dir(span);
+
+        // eslint-disable-next-line no-extend-native
+        String.prototype.sarcastic = function() {
+                const sarcastic = this.split('').map((char, i) => {
+                        if (i % 2) {
+                                return char.toUpperCase();
+                        }
+                        return char.toLowerCase();
+                });
+                return sarcastic.join('');
+};
 
         function Pizza(toppings = [], customer) {
                 this.toppings = toppings;
                 this.customer = customer;
                 this.id = Math.floor(Math.random() * 16777215).toString(16);
-                console.log('inside of constructor this = ', this);
+                this.slices = 10;
+                // this.eat = function(slices = 1) {
+                //         if (this.slices > 0) {
+                //                 console.log(`${slices} slices were eaten`);
+                //                 this.slices -= slices;
+                //         }
+                //         return this.slices;
+                // };
         }
 
-        const pepperoniPizza = new Pizza(['olives', 'tomatoes', 'pepperoni', 'blue cheese'], 'Artem');
-        console.log({ pepperoniPizza });
-        console.log(pepperoniPizza.constructor);
+        Pizza.prototype.eat = function(slices = 1) {
+                if (this.slices > 0) {
+                        console.log(`BETTER!: ${slices} slices were eaten`);
+                        this.slices -= slices;
+                }
+                return this.slices;
+        };
 
-        const pineapplePizza = new Pizza(['pineapple', 'ham', 'mushrooms'], 'Gabor');
-        console.log({ pineapplePizza });
-        console.log(pineapplePizza.constructor);
+        Pizza.prototype.size = 'Large';
+        Pizza.prototype.describe = function() {
+                return `This pizza is for ${this.customer}. It has ${this.toppings.join(', ')} as toppings and it has ${
+                        this.slices
+        } slices left`;
+        };
 
+        const pepperoniPizza = new Pizza(['pepperoni', 'onion'], 'Artem');
+        const canadianPizza = new Pizza(['pepperoni', 'mushrooms', 'onion'], 'Gabor');
+        const tomatoPizza = new Pizza(['tomato', 'extra cheese'], 'Dave');
         // const button1 = document.querySelector('.one');
-        // const button2 = document.querySelector('.two ');
+        // const button2 = document.querySelector('.two');
 
-        // function tellMeAboutTheButton(event) {
+        // function tellMeAboutTheButton() {
         //         console.log(this);
-        //         console.log(event);
-        //         // setTimeou  t(function() {
-        //         //         this.textContent = 'You have made it!';
-        //         // }, 1500);
         //         setTimeout(() => {
-        //                 this.textContent = 'You have made it!';
-        //         }, 1500);
+        //                 this.textContent = 'You clicked me';
+        //         }, 1000);
         // }
 
         // button1.addEventListener('click', tellMeAboutTheButton);
         // button2.addEventListener('click', tellMeAboutTheButton);
-    </script>
+            </script> 
 </body>
-
+ 
 </html>

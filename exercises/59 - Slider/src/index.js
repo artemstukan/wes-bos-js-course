@@ -1,95 +1,52 @@
-function Slider(sliderEl) {
-        if (!(sliderEl instanceof Element)) {
-                throw new Error('No slider passed in');
+function Slider(slider) {
+        if (!(slider instanceof Element)) {
+                throw new Error('No slider element is found!');
         }
-        let currentSlide;
-        let prevSlide;
-        let nextSlide;
-
-        const prevButton = sliderEl.querySelector('.controls .goToPrev');
-        const nextButton = sliderEl.querySelector('.controls .goToNext');
-
-        const slides = sliderEl.querySelector('.slides');
-
-        function startSlider() {
-                currentSlide = sliderEl.querySelector('.slide.current') || slides.firstElementChild;
-                prevSlide = currentSlide.previousElementSibling || slides.lastElementChild;
-                nextSlide = currentSlide.nextElementSibling || slides.firstElementChild;
-        }
-
-        function removeCurrentSlidesClasses() {
-                currentSlide.classList.remove('current');
-                prevSlide.classList.remove('prev');
-                nextSlide.classList.remove('next');
-
-                // const classesToRemove = ['prev', 'current', 'next'];
-                // currentSlide.classList.remove(...classesToRemove);
-                // prevSlide.classList.remove(...classesToRemove);
-                // nextSlide.classList.remove(...classesToRemove);
-        }
+        let current;
+        let prev;
+        let next;
+        const slides = slider.querySelector('.slides');
+        const prevButton = slider.querySelector('.goToPrev');
+        const nextButton = slider.querySelector('.goToNext');
 
         function applyClasses() {
-                currentSlide.classList.add('current');
-                prevSlide.classList.add('prev');
-                nextSlide.classList.add('next');
+                current.classList.add('current');
+                prev.classList.add('prev');
+                next.classList.add('next');
         }
 
+        function removeClasses() {
+                const classesToRemove = ['prev', 'current', 'next'];
+                [prev, current, next].forEach(el => el.classList.remove(...classesToRemove));
+        }
+
+        function startSlider() {
+                current = slider.querySelector('.current') || slides.firstElementChild;
+                prev = current.previousElementSibling || slides.lastElementChild;
+                next = current.nextElementSibling || slides.firstElementChild;
+        }
+        // function move(direction) {
         function move(direction) {
-                removeCurrentSlidesClasses();
-
-                // currentSlide =
-                //         direction === 'forward'
-                //                 ? currentSlide.nextElementSibling || slides.firstElementChild
-                //                 : currentSlide.previousElementSibling || slides.lastElementChild;
-                // prevSlide = currentSlide.previousElementSibling || slides.lastElementChild;
-                // nextSlide = currentSlide.nextElementSibling || slides.firstElementChild;
-
-                if (direction === 'back') {
-                        [prevSlide, currentSlide, nextSlide] = [
-                                prevSlide.previousElementSibling || slides.lastElementChild,
-                                prevSlide,
-                                currentSlide,
-                        ];
+                removeClasses();
+                if (direction === 'next') {
+                        [prev, current, next] = [current, next, next.nextElementSibling || slides.firstElementChild];
                 } else {
-                        [prevSlide, currentSlide, nextSlide] = [
-                                currentSlide,
-                                nextSlide,
-                                nextSlide.nextElementSibling || slides.firstElementChild,
-                        ];
+                        [prev, current, next] = [prev.previousElementSibling || slides.lastElementChild, prev, current];
                 }
-
                 applyClasses();
         }
 
+        prevButton.addEventListener('click', move);
+        nextButton.addEventListener('click', () => move('next'));
+
+        slides.addEventListener('keyup', e => {
+                if (e.key === 'ArrowLeft') move();
+                if (e.key === 'ArrowRight') move('next');
+        });
+
         startSlider();
         applyClasses();
-
-        nextButton.addEventListener('click', move);
-
-        prevButton.addEventListener('click', function() {
-                move('back');
-        });
-
-        document.addEventListener('keyup', function(e) {
-                if (!window.getSelection().anchorNode || !window.getSelection().anchorNode.parentElement) {
-                        return;
-                }
-                const selectedEl = window.getSelection().anchorNode.parentElement;
-                if (e.key === 'ArrowRight') {
-                        if (sliderEl.contains(selectedEl)) {
-                                move();
-                        }
-                        return;
-                }
-                if (e.key === 'ArrowLeft') {
-                        if (sliderEl.contains(selectedEl)) {
-                                move('back');
-                        }
-                }
-        });
 }
 
-// const slider1 = new Slider(document.querySelector('.slider'));
-const slider1 = Slider(document.querySelector('.slider'));
-console.log(slider1);
-const slider2 = Slider(document.querySelector('.dog-slider'));
+const mySlider = Slider(document.querySelector('.slider'));
+const dogSlider = Slider(document.querySelector('.dog-slider'));

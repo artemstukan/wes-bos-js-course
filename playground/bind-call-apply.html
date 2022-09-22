@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bind, call and apply</title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+    <body>
+    <button class="default-button">Press me</button>
+<div class="wrapper">
+    <p>Hey I'm in a wrapper</p>
+</div>
+  <script>
+  const person = {
+          name: 'Wes Bos',
+          sayHi() {
+                  console.log(this);
+                  console.log(`Hey ${this.name}`);
+          },
+};
+
+const jenna = { name: 'Jenna' };
+// const { sayHi } = person;
+
+// const sayHi = person.sayHi.bind(jenna);
+const sayHi = person.sayHi.bind({ name: 'Artem' });
+// const $ = document.querySelector;
+// $.bind(document, '.default-button')()
+const $ = document.querySelector.bind(document);
+
+const wrapper = document.querySelector('.wrapper');
+const p = wrapper.querySelector('p');
+
+const bill = {
+          total: 1000,
+          calculate(taxRate) {
+                  //   console.log(taxRate);
+                  return (this.total * (100 + taxRate)) / 100;
+          },
+          describe(mealType, drinkType, taxRate) {
+                  console.log(this);
+                  return `Order: ${mealType} and ${drinkType} for total of ${this.calculate(taxRate)}`;
+          },
+};
+
+// const total = bill.calculate(13);
+// const calc = bill.calculate.bind({ total: 500 }, 29);
+// const calc = bill.calculate.bind({ total: 500 });
+// console.log(calc(10));
+const total2 = bill.calculate.apply({ total: 500 }, [50]);
+const myMeal = bill.describe.call(bill, ...['sticks', 'whisky on stones', 30]);
+// const myMeal = bill.describe.apply(bill, ['sticks', 'whisky on stones', 30]);
+  </script>
+</body>
+
+</html>

@@ -13,9 +13,10 @@ function Slider(slider) {
 
         function startSlider() {
                 current = slider.querySelector('.current') || slides.firstElementChild;
+                console.log(current);
                 prev = current.previousElementSibling || slides.lastElementChild;
                 next = current.nextElementSibling || slides.firstElementChild;
-                console.log({ current, prev, next });
+                // console.log({ current, prev, next });
         }
 
         function applyClasses() {

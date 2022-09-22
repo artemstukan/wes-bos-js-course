@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Async Await Error Handling</title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+
+  <script>
+  function wait(ms = 0) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function makePizza(toppings = []) {
+          return new Promise(function(resolve, reject) {
+                  if (toppings.includes('pineapple')) {
+                          // reject('you are not allowed to add pineapple on pizzas!');
+                          reject(Error('you are not allowed to add pineapple on pizzas!'));
+                  }
+                  const defaultTime = 500;
+                  const ovenTime = defaultTime + toppings.length * 200;
+                  setTimeout(function() {
+                          resolve(`freshly baked pizza is ready with the toppings ${toppings.join(', ')}`);
+                  }, ovenTime);
+          });
+  }
+
+  function handleError(err) {
+          console.log('oh no. what have you done');
+          console.log(err);
+  }
+
+  async function go() {
+          //   try {
+          //           const pizza = await makePizza(['pineapple']);
+          //   } catch (err) {
+          //           handleError('internal', err);
+          //   }
+          const pizza = await makePizza(['pineapple']);
+
+          console.log(pizza);
+          return pizza;
+  }
+
+//   const result = go();
+//   console.log(result);
+//   go().catch(handleError);
+//   go()
+//           .then(result => {
+//                   console.log(result);
+//           })
+//           .catch(handleError);
+
+function makeSafe(fn, errorHandler) {
+          //   try {
+          //           fn();
+          //           //   go();
+          //   } catch (err) {
+          //           handleError('2nd', err);
+          //   }
+          return function() {
+                  fn().catch(errorHandler);
+          };
+}
+
+// go();
+go().catch(handleError);
+
+// console.log(makeSafe(go));
+// const safeGo = makeSafe(go, handleError);
+// safeGo();
+// try {
+//           go();
+//   } catch (err) {
+//           handleError(err);
+//   }
+// go();
+</script>
+</body>
+
+</html> 

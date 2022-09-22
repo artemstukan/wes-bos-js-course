@@ -1,5 +1,5 @@
 {
-  "name": "slider",
+  "name": "security",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,11 +8,10 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@parcel/transformer-sass": "^2.4.1",
-    "sass": "^1.32.8"
-  },
   "dependencies": {
-    "parcel-bundler": "1.12.3"
+    "dompurify": "^2.0.7"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
   }
 }
